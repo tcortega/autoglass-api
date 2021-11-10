@@ -44,7 +44,8 @@ namespace AutoGlass.Tests
             try
             {
                 supplierAppService.Add<SupplierDtoValidator>(supplierDto);
-            } catch
+            }
+            catch
             {
                 Assert.Pass("Throwed exception as expected.");
             }
