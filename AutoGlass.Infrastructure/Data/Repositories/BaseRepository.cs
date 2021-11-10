@@ -48,7 +48,6 @@ namespace AutoGlass.Infrastructure.Data.Repositories
             _context.SaveChanges();
         }
 
-        /// <inheritdoc/>
-        public void Attach<T>(T entity) where T : Entity => _context.Attach(entity);
+        public void Attach<TEntity>(TEntity entity) where TEntity : Entity => _context.Attach(entity);
     }
 }
