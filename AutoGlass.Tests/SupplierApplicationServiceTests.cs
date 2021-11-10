@@ -29,7 +29,6 @@ namespace AutoGlass.Tests
             _mapperStub = new();
 
             _fixture = new();
-            //SetUpCustomizations();
         }
 
         [Test]
