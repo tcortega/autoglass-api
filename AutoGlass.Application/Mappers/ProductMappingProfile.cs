@@ -9,6 +9,8 @@ namespace AutoGlass.Application.Mappers
         public ProductMappingProfile()
         {
             CreateMap<ProductDto, Product>()
+                .ForMember(x => x.CreatedAt, opt => opt.Ignore())
+                .ForMember(x => x.UpdatedAt, opt => opt.Ignore())
                 .ReverseMap();
         }
     }

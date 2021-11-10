@@ -7,21 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infrastructure", "4. Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Services", "1. Services", "{6E9648CA-4450-467B-A682-3E1675E23897}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Api", "AutoGlass.Api\AutoGlass.Api.csproj", "{F516C0AA-0CCD-4651-840F-3C14FEB801E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Api", "AutoGlass.Api\AutoGlass.Api.csproj", "{F516C0AA-0CCD-4651-840F-3C14FEB801E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Application", "2. Application", "{B164B17D-43BA-43CE-81BE-D54F768D7871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Application", "AutoGlass.Application\AutoGlass.Application.csproj", "{26548F50-EF94-48A4-8E69-EACE9CDC3960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Application", "AutoGlass.Application\AutoGlass.Application.csproj", "{26548F50-EF94-48A4-8E69-EACE9CDC3960}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain", "3. Domain", "{2579BBA6-5BB6-4DA8-B58A-F76C070015C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Domain", "AutoGlass.Domain\AutoGlass.Domain.csproj", "{9748F1CC-2DB7-44A8-9B2E-B5D79C82502D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Domain", "AutoGlass.Domain\AutoGlass.Domain.csproj", "{9748F1CC-2DB7-44A8-9B2E-B5D79C82502D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Domain.Core", "AutoGlass.Domain.Core\AutoGlass.Domain.Core.csproj", "{D647F7C0-8640-4E16-BFAA-26EC141C3894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Domain.Core", "AutoGlass.Domain.Core\AutoGlass.Domain.Core.csproj", "{D647F7C0-8640-4E16-BFAA-26EC141C3894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Domain.Services", "AutoGlass.Domain.Services\AutoGlass.Domain.Services.csproj", "{988C8D8C-5781-4602-B476-22D176A44271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Domain.Services", "AutoGlass.Domain.Services\AutoGlass.Domain.Services.csproj", "{988C8D8C-5781-4602-B476-22D176A44271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Infrastructure", "AutoGlass.Infrastructure\AutoGlass.Infrastructure.csproj", "{16A37B1E-91A2-4956-9B6E-4EC088143CB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Infrastructure", "AutoGlass.Infrastructure\AutoGlass.Infrastructure.csproj", "{16A37B1E-91A2-4956-9B6E-4EC088143CB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{E5FB9623-CF9A-499A-853E-A05FDFA72176}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Tests", "AutoGlass.Tests\AutoGlass.Tests.csproj", "{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{16A37B1E-91A2-4956-9B6E-4EC088143CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A37B1E-91A2-4956-9B6E-4EC088143CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A37B1E-91A2-4956-9B6E-4EC088143CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{D647F7C0-8640-4E16-BFAA-26EC141C3894} = {2579BBA6-5BB6-4DA8-B58A-F76C070015C4}
 		{988C8D8C-5781-4602-B476-22D176A44271} = {2579BBA6-5BB6-4DA8-B58A-F76C070015C4}
 		{16A37B1E-91A2-4956-9B6E-4EC088143CB5} = {DFF9CCAC-E0B5-4F17-99D5-525A04D3543A}
+		{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4} = {E5FB9623-CF9A-499A-853E-A05FDFA72176}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09F16754-150F-4983-9588-7FFB0B530503}
