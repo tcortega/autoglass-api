@@ -9,9 +9,9 @@ namespace AutoGlass.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions options) 
-            : base(options) 
-        { 
+        public ApplicationDbContext(DbContextOptions options)
+            : base(options)
+        {
         }
 
         public DbSet<Supplier> Suppliers { get; set; }
@@ -41,6 +41,7 @@ namespace AutoGlass.Infrastructure.Data
                 if (entity.State == EntityState.Added)
                 {
                     ((Entity)entity.Entity).CreatedAt = now;
+                    ((Entity)entity.Entity).IsActive = true;
                 }
 
                 ((Entity)entity.Entity).UpdatedAt = now;

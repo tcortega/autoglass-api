@@ -1,10 +1,9 @@
 ﻿using AutoGlass.Domain.Entities;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace AutoGlass.Domain.Core.Interfaces.Repositories
+namespace AutoGlass.Domain.Core.Interfaces.Services
 {
-    public interface IRepository<T> where T : Entity
+    public interface IService<T> where T : Entity
     {
         void Add(T entity);
 
@@ -14,7 +13,9 @@ namespace AutoGlass.Domain.Core.Interfaces.Repositories
 
         void Remove(T entity);
 
-        IQueryable<T> GetAll();
+        void Remove(IEnumerable<T> entities);
+
+        IEnumerable<T> GetAll();
 
         T Get(int id);
 

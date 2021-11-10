@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace AutoGlass.Domain.Entities
+namespace AutoGlass.Application.Dtos
 {
-    public class Product : Entity
+    public class ProductDto : Dto
     {
         public string Description { get; set; }
 
         public DateTime ManufactureDate { get; set; }
         public DateTime ExpirationDate { get; set; }
 
-        public Supplier Supplier { get; set; }
+        public SupplierDto Supplier { get; set; }
     }
 }
