@@ -1,23 +1,24 @@
 ﻿using AutoGlass.Domain.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Domain.Core.Interfaces.Services
 {
     public interface IService<T> where T : Entity
     {
-        void Add(T entity);
+        Task Add(T entity);
 
-        void Update(T entity);
+        Task Update(T entity);
 
-        void Update(IEnumerable<T> entities);
+        Task Update(IEnumerable<T> entities);
 
-        void Remove(T entity);
+        Task Remove(T entity);
 
-        void Remove(IEnumerable<T> entities);
+        Task Remove(IEnumerable<T> entities);
 
         IEnumerable<T> GetAll();
 
-        T Get(int id);
+        Task<T> Get(int id);
 
         void Attach<TEntity>(TEntity entity) where TEntity : Entity;
     }

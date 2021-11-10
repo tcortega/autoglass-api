@@ -3,8 +3,8 @@ using AutoGlass.Application.Interfaces;
 using AutoGlass.Domain.Core.Interfaces.Services;
 using AutoGlass.Domain.Entities;
 using AutoMapper;
-using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Application
 {
@@ -18,19 +18,17 @@ namespace AutoGlass.Application
             _productService = productService;
         }
 
-        public override void Remove(int id)
+        public override async Task Remove(int id)
         {
-            var entity = _service.Get(id);
+            var entity = await _service.Get(id);
 
-            if (entity is null || !entity.IsActive)
-                throw new Exception("Registros não encontrados!");
+            ValidateEntity(entity);
 
             var supplierProducts = _productService.GetAll()
                 .Where(p => p.Supplier.Id == id);
 
-            _productService.Remove(supplierProducts);
-
-            _service.Remove(entity);
+            await _productService.Remove(supplierProducts);
+            await _service.Remove(entity);
         }
     }
 }

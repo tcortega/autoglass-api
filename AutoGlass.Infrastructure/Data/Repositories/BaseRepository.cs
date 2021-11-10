@@ -1,7 +1,9 @@
 ﻿using AutoGlass.Domain.Core.Interfaces.Repositories;
 using AutoGlass.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Infrastructure.Data.Repositories
 {
@@ -14,38 +16,34 @@ namespace AutoGlass.Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public virtual void Add(T entity)
+        public virtual async Task Add(T entity)
         {
             _context.Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public virtual IQueryable<T> GetAll()
-        {
-            return _context.Set<T>();
-        }
+            => _context.Set<T>();
 
-        public virtual T Get(int id)
-        {
-            return _context.Find<T>(id);
-        }
+        public virtual async Task<T> Get(int id)
+            => await GetAll().FirstOrDefaultAsync(e => e.Id == id);
 
-        public virtual void Remove(T entity)
+        public virtual async Task Remove(T entity)
         {
             _context.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public virtual void Update(T entity)
+        public virtual async Task Update(T entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public virtual void Update(IEnumerable<T> entities)
+        public virtual async Task Update(IEnumerable<T> entities)
         {
             _context.UpdateRange(entities);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Attach<TEntity>(TEntity entity) where TEntity : Entity => _context.Attach(entity);

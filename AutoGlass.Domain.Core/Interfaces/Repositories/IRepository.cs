@@ -1,22 +1,23 @@
 ﻿using AutoGlass.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Domain.Core.Interfaces.Repositories
 {
     public interface IRepository<T> where T : Entity
     {
-        void Add(T entity);
+        Task<T> Get(int id);
 
-        void Update(T entity);
+        Task Add(T entity);
 
-        void Update(IEnumerable<T> entities);
+        Task Update(T entity);
 
-        void Remove(T entity);
+        Task Update(IEnumerable<T> entities);
+
+        Task Remove(T entity);
 
         IQueryable<T> GetAll();
-
-        T Get(int id);
 
         void Attach<TEntity>(TEntity entity) where TEntity : Entity;
     }

@@ -4,6 +4,7 @@ using AutoGlass.Domain.Core.Interfaces.Services;
 using AutoGlass.Domain.Entities;
 using AutoMapper;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Application
 {
@@ -17,42 +18,39 @@ namespace AutoGlass.Application
             _supplierService = supplierService;
         }
 
-        public override void Add<TValidator>(ProductDto dto)
+        public override async Task Add<TValidator>(ProductDto dto)
         {
             Validate(dto, Activator.CreateInstance<TValidator>());
 
             var entity = _mapper.Map<Product>(dto);
 
-            var supplier = _supplierService.Get(entity.Supplier.Id);
-            if (supplier is null || !supplier.IsActive)
-                throw new Exception("Não existe nenhum fornecedor cadastrado com este id.");
+            var supplier = await _supplierService.Get(entity.Supplier.Id);
+
+            ValidateEntity(supplier, "Não existe nenhum fornecedor cadastrado com este id.");
 
             entity.Supplier = supplier;
 
             _service.Attach(supplier);
-            _service.Update(entity);
+            await _service.Update(entity);
         }
 
-        public override void Update<TValidator>(ProductDto dto)
+        public override async Task Update<TValidator>(ProductDto dto)
         {
             Validate(dto, Activator.CreateInstance<TValidator>());
 
             var entity = _mapper.Map<Product>(dto);
-            var supplier = _supplierService.Get(entity.Supplier.Id);
+            var supplier = await _supplierService.Get(entity.Supplier.Id);
 
-            entity = _service.Get(entity.Id);
+            entity = await _service.Get(entity.Id);
 
-            if (entity is null || !entity.IsActive)
-                throw new Exception("Não existe nenhum produto cadastrado com este id.");
-
-            if (supplier is null || !supplier.IsActive)
-                throw new Exception("Não existe nenhum fornecedor cadastrado com este id que seja dono desse produto.");
+            ValidateEntity(entity, "Não existe nenhum produto cadastrado com este id.");
+            ValidateEntity(supplier, "Não existe nenhum fornecedor cadastrado com este id que seja dono desse produto.");
 
             _mapper.Map(dto, entity);
             entity.Supplier = supplier;
 
             _service.Attach(supplier);
-            _service.Update(entity);
+            await _service.Update(entity);
         }
     }
 }

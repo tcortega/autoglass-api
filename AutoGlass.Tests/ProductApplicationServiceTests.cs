@@ -10,6 +10,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Tests
 {
@@ -29,11 +30,10 @@ namespace AutoGlass.Tests
             _mapperStub = new();
 
             _fixture = new();
-            //SetUpCustomizations();
         }
 
         [Test]
-        public void Create_WithInvalidItem_ThrowsException()
+        public async Task Create_WithInvalidItem_ThrowsException()
         {
             var productEntity = new Product();
             var productDto = new ProductDto();
@@ -43,7 +43,7 @@ namespace AutoGlass.Tests
 
             try
             {
-                productAppService.Add<ProductDtoValidator>(productDto);
+                await productAppService.Add<ProductDtoValidator>(productDto);
             }
             catch
             {
@@ -81,7 +81,7 @@ namespace AutoGlass.Tests
         }
 
         [Test]
-        public void Get_WithExistingItem_ReturnsExpectedItem()
+        public async Task Get_WithExistingItem_ReturnsExpectedItem()
         {
             // Arrange
             var product = _fixture.Build<Product>()
@@ -106,13 +106,13 @@ namespace AutoGlass.Tests
                 Supplier = productSupplierDto
             };
 
-            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(product);
+            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(Task.FromResult(product));
             _mapperStub.Setup(x => x.Map<ProductDto>(product)).Returns(productDto);
 
             var productAppService = new ProductApplicationService(_productServiceStub.Object, _supplierServiceStub.Object, _mapperStub.Object);
 
             // Act
-            var result = productAppService.Get(It.IsAny<int>());
+            var result = await productAppService.Get(It.IsAny<int>());
 
             // Assert
             Assert.IsNotNull(result);
@@ -122,7 +122,7 @@ namespace AutoGlass.Tests
         }
 
         [Test]
-        public void Remove_WithNonExistingItem_ThrowsException()
+        public async Task Remove_WithNonExistingItem_ThrowsException()
         {
             // Arrange
             var activeEntity = _fixture.Build<Product>()
@@ -133,19 +133,19 @@ namespace AutoGlass.Tests
                 .With(c => c.IsActive, false)
                 .Create();
 
-            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(deactivatedEntity);
+            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(Task.FromResult(deactivatedEntity));
 
             var productAppService = new ProductApplicationService(_productServiceStub.Object, _supplierServiceStub.Object, _mapperStub.Object);
 
             // Act
             try
             {
-                productAppService.Remove(activeEntity.Id);
+                await productAppService.Remove(activeEntity.Id);
             }
             // Assert
             catch (Exception ex)
             {
-                if (ex.Message == "Registros não encontrados!")
+                if (ex.Message == "Não foi encontrado nenhum registro para os dados inseridos.")
                     Assert.Pass("Throws exception");
                 else
                     Assert.Fail($"Did not throw proper exception. {ex.Message}");
@@ -156,7 +156,7 @@ namespace AutoGlass.Tests
         }
 
         [Test]
-        public void Update_WithDeactivatedItem_ThrowsException()
+        public async Task Update_WithDeactivatedItem_ThrowsException()
         {
             // Arrange
             var deactivatedEntity = _fixture.Build<Product>()
@@ -173,7 +173,7 @@ namespace AutoGlass.Tests
                 Supplier = new SupplierDto { Id = 2 }
             };
 
-            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(deactivatedEntity);
+            _productServiceStub.Setup(x => x.Get(It.IsAny<int>())).Returns(Task.FromResult(deactivatedEntity));
             _mapperStub.Setup(x => x.Map<Product>(productDto)).Returns(deactivatedEntity);
 
             var productAppService = new ProductApplicationService(_productServiceStub.Object, _supplierServiceStub.Object, _mapperStub.Object);
@@ -181,7 +181,7 @@ namespace AutoGlass.Tests
             // Act
             try
             {
-                productAppService.Update<ProductDtoValidator>(productDto);
+                await productAppService.Update<ProductDtoValidator>(productDto);
             }
             // Assert
             catch (Exception ex)

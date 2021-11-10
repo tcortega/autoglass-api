@@ -7,6 +7,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Application
 {
@@ -22,19 +23,18 @@ namespace AutoGlass.Application
             _mapper = mapper;
         }
 
-        public virtual void Add<TValidator>(TDto dto) where TValidator : AbstractValidator<TDto>
+        public virtual async Task Add<TValidator>(TDto dto) where TValidator : AbstractValidator<TDto>
         {
             Validate(dto, Activator.CreateInstance<TValidator>());
             var entity = _mapper.Map<TEntity>(dto);
-            _service.Add(entity);
+            await _service.Add(entity);
         }
 
-        public virtual TDto Get(int id)
+        public virtual async Task<TDto> Get(int id)
         {
-            var entity = _service.Get(id);
+            var entity = await _service.Get(id);
 
-            if (entity is null || !entity.IsActive)
-                throw new Exception("Registros não encontrados!");
+            ValidateEntity(entity);
 
             return _mapper.Map<TDto>(entity);
         }
@@ -46,28 +46,26 @@ namespace AutoGlass.Application
             return _mapper.Map<IEnumerable<TDto>>(entities);
         }
 
-        public virtual void Remove(int id)
+        public virtual async Task Remove(int id)
         {
-            var entity = _service.Get(id);
+            var entity = await _service.Get(id);
 
-            if (entity is null || !entity.IsActive)
-                throw new Exception("Registros não encontrados!");
+            ValidateEntity(entity);
 
-            _service.Remove(entity);
+            await _service.Remove(entity);
         }
 
-        public virtual void Update<TValidator>(TDto dto) where TValidator : AbstractValidator<TDto>
+        public virtual async Task Update<TValidator>(TDto dto) where TValidator : AbstractValidator<TDto>
         {
             Validate(dto, Activator.CreateInstance<TValidator>());
             var entity = _mapper.Map<TEntity>(dto);
-            entity = _service.Get(entity.Id);
+            entity = await _service.Get(entity.Id);
 
-            if (entity is null || !entity.IsActive)
-                throw new Exception("Registros não encontrados!");
+            ValidateEntity(entity);
 
             _mapper.Map(dto, entity);
 
-            _service.Update(entity);
+            await _service.Update(entity);
         }
 
         protected void Validate(TDto dto, AbstractValidator<TDto> validator)
@@ -76,6 +74,13 @@ namespace AutoGlass.Application
                 throw new Exception("Registros não encontrados!");
 
             validator.ValidateAndThrow(dto);
+        }
+
+        protected void ValidateEntity<TEnt>(TEnt entity, string msg = "Não foi encontrado nenhum registro para os dados inseridos.")
+            where TEnt : Entity
+        {
+            if (entity is null || !entity.IsActive)
+                throw new Exception(msg);
         }
     }
 }

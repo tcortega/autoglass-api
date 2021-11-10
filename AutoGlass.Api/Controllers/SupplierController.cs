@@ -4,6 +4,7 @@ using AutoGlass.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Api.Controllers
 {
@@ -25,11 +26,11 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<SupplierDto> Get(int id)
+        public async Task<ActionResult<SupplierDto>> Get(int id)
         {
             try
             {
-                return Ok(_supplierApplicationService.Get(id));
+                return Ok(await _supplierApplicationService.Get(id));
             }
             catch (Exception ex)
             {
@@ -38,14 +39,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] SupplierDto dto)
+        public async Task<ActionResult> Post([FromBody] SupplierDto dto)
         {
             if (dto is null)
                 return BadRequest();
 
             try
             {
-                _supplierApplicationService.Add<SupplierDtoValidator>(dto);
+                await _supplierApplicationService.Add<SupplierDtoValidator>(dto);
                 return Ok("Fornecedor cadastrado com sucesso!");
             }
             catch (Exception ex)
@@ -55,14 +56,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpPut]
-        public ActionResult Put([FromBody] SupplierDto dto)
+        public async Task<ActionResult> Put([FromBody] SupplierDto dto)
         {
             try
             {
                 if (dto is null)
                     return NotFound();
 
-                _supplierApplicationService.Update<SupplierDtoValidator>(dto);
+                await _supplierApplicationService.Update<SupplierDtoValidator>(dto);
                 return Ok("Dados do fornecedor atualizados com sucesso!");
             }
             catch (Exception ex)
@@ -72,14 +73,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 if (id <= 0)
                     return NotFound();
 
-                _supplierApplicationService.Remove(id);
+                await _supplierApplicationService.Remove(id);
                 return Ok("Fornecedor deletado com sucesso");
             }
             catch (Exception ex)

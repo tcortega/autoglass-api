@@ -2,6 +2,7 @@
 using AutoGlass.Domain.Core.Interfaces.Services;
 using AutoGlass.Domain.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Domain.Services
 {
@@ -14,41 +15,41 @@ namespace AutoGlass.Domain.Services
             _repo = repo;
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            _repo.Add(entity);
+            await _repo.Add(entity);
         }
 
-        public virtual T Get(int id)
-            => _repo.Get(id);
+        public virtual async Task<T> Get(int id)
+            => await _repo.Get(id);
 
         public virtual IEnumerable<T> GetAll()
             => _repo.GetAll();
 
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
             entity.IsActive = false;
-            Update(entity);
+            await Update(entity);
         }
 
-        public void Remove(IEnumerable<T> entities)
+        public async Task Remove(IEnumerable<T> entities)
         {
             foreach (var entity in entities)
             {
                 entity.IsActive = false;
             }
 
-            _repo.Update(entities);
+            await _repo.Update(entities);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            _repo.Update(entity);
+            await _repo.Update(entity);
         }
 
-        public void Update(IEnumerable<T> entities)
+        public async Task Update(IEnumerable<T> entities)
         {
-            _repo.Update(entities);
+            await _repo.Update(entities);
         }
 
         public void Attach<TEntity>(TEntity entity) where TEntity : Entity

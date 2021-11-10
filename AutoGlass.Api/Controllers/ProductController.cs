@@ -4,6 +4,7 @@ using AutoGlass.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AutoGlass.Api.Controllers
 {
@@ -25,11 +26,11 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> Get(int id)
+        public async Task<ActionResult<ProductDto>> Get(int id)
         {
             try
             {
-                return Ok(_productApplicationService.Get(id));
+                return Ok(await _productApplicationService.Get(id));
             }
             catch (Exception ex)
             {
@@ -38,14 +39,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] ProductDto dto)
+        public async Task<ActionResult> Post([FromBody] ProductDto dto)
         {
             if (dto is null)
                 return BadRequest();
 
             try
             {
-                _productApplicationService.Add<ProductDtoValidator>(dto);
+                await _productApplicationService.Add<ProductDtoValidator>(dto);
                 return Ok("Produto cadastrado com sucesso!");
             }
             catch (Exception ex)
@@ -55,14 +56,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpPut]
-        public ActionResult Put([FromBody] ProductDto dto)
+        public async Task<ActionResult> Put([FromBody] ProductDto dto)
         {
             try
             {
                 if (dto is null)
                     return NotFound();
 
-                _productApplicationService.Update<ProductDtoValidator>(dto);
+                await _productApplicationService.Update<ProductDtoValidator>(dto);
                 return Ok("Dados do Produto atualizados com sucesso!");
             }
             catch (Exception ex)
@@ -72,14 +73,14 @@ namespace AutoGlass.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 if (id <= 0)
                     return NotFound();
 
-                _productApplicationService.Remove(id);
+                await _productApplicationService.Remove(id);
                 return Ok("Produto deletado com sucesso");
             }
             catch (Exception ex)
