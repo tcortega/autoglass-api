@@ -38,11 +38,17 @@ namespace AutoGlass.Application
             Validate(dto, Activator.CreateInstance<TValidator>());
 
             var entity = _mapper.Map<Product>(dto);
-
             var supplier = _supplierService.Get(entity.Supplier.Id);
-            if (supplier is null || !supplier.IsActive)
-                throw new Exception("Não existe nenhum fornecedor cadastrado com este id.");
 
+            entity = _service.Get(entity.Id);
+
+            if (entity is null || !entity.IsActive)
+                throw new Exception("Não existe nenhum produto cadastrado com este id.");
+
+            if (supplier is null || !supplier.IsActive)
+                throw new Exception("Não existe nenhum fornecedor cadastrado com este id que seja dono desse produto.");
+
+            _mapper.Map(dto, entity);
             entity.Supplier = supplier;
 
             _service.Attach(supplier);

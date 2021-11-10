@@ -60,6 +60,13 @@ namespace AutoGlass.Application
         {
             Validate(dto, Activator.CreateInstance<TValidator>());
             var entity = _mapper.Map<TEntity>(dto);
+            entity = _service.Get(entity.Id);
+
+            if (entity is null || !entity.IsActive)
+                throw new Exception("Registros não encontrados!");
+
+            _mapper.Map(dto, entity);
+
             _service.Update(entity);
         }
 
