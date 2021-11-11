@@ -2,6 +2,7 @@
 using AutoGlass.Domain.Core.Interfaces.Services;
 using AutoGlass.Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AutoGlass.Domain.Services
@@ -24,7 +25,7 @@ namespace AutoGlass.Domain.Services
             => await _repo.Get(id);
 
         public virtual IEnumerable<T> GetAll()
-            => _repo.GetAll();
+            => _repo.GetAll().Where(s => s.IsActive);
 
         public async Task Remove(T entity)
         {

@@ -23,7 +23,6 @@ namespace AutoGlass.Application
             Validate(dto, Activator.CreateInstance<TValidator>());
 
             var entity = _mapper.Map<Product>(dto);
-
             var supplier = await _supplierService.Get(entity.Supplier.Id);
 
             ValidateEntity(supplier, "Não existe nenhum fornecedor cadastrado com este id.");

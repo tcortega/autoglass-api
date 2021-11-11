@@ -6,7 +6,6 @@ using AutoMapper;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AutoGlass.Application
@@ -41,8 +40,7 @@ namespace AutoGlass.Application
 
         public virtual IEnumerable<TDto> GetAll()
         {
-            var entities = _service.GetAll()
-                .Where(s => s.IsActive);
+            var entities = _service.GetAll();
             return _mapper.Map<IEnumerable<TDto>>(entities);
         }
 
