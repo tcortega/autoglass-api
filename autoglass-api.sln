@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infrastructure", "4. Infrastructure", "{DFF9CCAC-E0B5-4F17-99D5-525A04D3543A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Services", "1. Services", "{6E9648CA-4450-467B-A682-3E1675E23897}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Presentation", "1. Presentation", "{6E9648CA-4450-467B-A682-3E1675E23897}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Api", "AutoGlass.Api\AutoGlass.Api.csproj", "{F516C0AA-0CCD-4651-840F-3C14FEB801E5}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Infrastructure", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{E5FB9623-CF9A-499A-853E-A05FDFA72176}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGlass.Tests", "AutoGlass.Tests\AutoGlass.Tests.csproj", "{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGlass.Tests", "AutoGlass.Tests\AutoGlass.Tests.csproj", "{F1B1C4C3-B3F6-4BDA-8034-0E70BF39B2D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
